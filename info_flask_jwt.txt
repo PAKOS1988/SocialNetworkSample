@@ -1,0 +1,56 @@
+
+Домашняя работа 22.06.2023
+регистрация дигиталоушен
+опубликовать проект квиз на пайтонэнивер
+
+
+
+
+
+сущности:
+photo
+post
+comment
+hashtag
+user
+
+#эндпоинты:
+------------------
+post_api.py
+    GET /api/post
+    GET /api/post/{post_id}
+    POST /api/post/upload_post
+    PUT /api/post/{user_id}/{post_id}
+    DELETE /api/post/{user_id}/{post_id}
+------------------
+------------------
+photo_api.py
+    GET /api/photo - получение всех фотографий
+    GET /api/photo/{user_id} - получение всех фотографий определенного пользователя
+    GET /api/photo/{photo_id} - получение определенной фотографии
+    PUT /api/photo/{user_id}/{photo_id} - изменение определенной фотографии определенного пользователя
+    DELETE /api/photo/{{user_id}/{photo_id} - удаление определенной фотографии определенного пользователя
+------------------
+------------------
+comment_api.py
+    GET /api/comment/{post_id}
+    POST /api/comment/{post_id}/{comment_user_id}
+    PUT /api/comment/{comment_user_id}/{comment_id}
+    DELETE /api/comment/{comment_user_id}/{comment_id}
+------------------
+------------------
+hashtag_api.py
+    GET /api/hashtag?size=20&page=1
+    GET /api/hashtag/{hashtag_name}
+------------------
+------------------
+user_api.py
+    GET /api/user - получение всех пользователей
+    GET /api/user/{user_id} - получение определенного пользователя
+    PUT /api/user/{user_id} - изменение определенного пользователя
+    DELETE /api/user/{user_id} - удаление определенного пользователя
+------------------
+------------------
+
+POST /api/signup
+POST /api/signin
