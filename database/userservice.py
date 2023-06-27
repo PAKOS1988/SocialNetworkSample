@@ -8,20 +8,34 @@ def register_user(**user_data):
 
 #Проверка пользователя по почте
 def check_user_db(email):
-    pass
+    cheker_email = User.query.filter_by(email=email).first()
+    if cheker_email:
+        return True
+    return False
 
 #Проверка пароля пользователя
 def check_user_password_db(email, password):
-    pass
+    cheker_email = User.query.filter_by(email=email).first()
+    cheker_pass = Password.query.filter_by(password=password).first()
+    if cheker_email and cheker_pass:
+        return True
+    return False
 
 #Получить всех пользователей из базы
 def get_all_users_db():
-    pass
+    users = User.query.all()
+    return users
 
 #Получить определенного пользователя
 def get_exact_user_db(user_id):
-    pass
+    user = User.query.filter_by(user_id=user_id).first()
+    return user
 
 #Удалить пользователя из базы
 def delete_user_db(user_id):
-    pass
+    user = User.query.filter_by(user_id=user_id).first()
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+    else:
+        return False
