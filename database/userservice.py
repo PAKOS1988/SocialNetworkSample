@@ -1,7 +1,7 @@
 from models import User, Password, db
 
 #Регистрация
-def register_user(**user_data):
+def register_user_db(**user_data):
     new_user = User(**user_data)
     db.session.add(new_user)
     db.session.commit()
