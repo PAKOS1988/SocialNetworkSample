@@ -37,5 +37,5 @@ def delete_user_db(user_id):
     if user:
         db.session.delete(user)
         db.session.commit()
-    else:
-        return False
+        return True
+    return False

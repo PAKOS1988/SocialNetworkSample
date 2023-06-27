@@ -6,20 +6,27 @@ user_bp = Blueprint('user', __name__, url_prefix='/user')
 #Получить всех пользователей
 @user_bp.route('/', methods=['GET'])
 def get_all_users():
-    pass
+    all_users = get_all_users_db() #Получаем всех пользователей
+    return {'status':1, 'message':all_users} #Выдаем результат
 
 #Получить определенного пользователя по user_id
 @user_bp.route('/<int:user_id>', methods = ['GET'])
 def get_exact_user(user_id:int):
-    pass
+    exact_user = get_exact_user_db(user_id) #Получаем пользователя
+    if exact_user: #Если пользователь есть
+        return {'status':1, 'message':exact_user}
+    return {'status':0, 'message': 'Not found'} #Если пользователя нет
 
 #Изменить данные пользователя
 @user_bp.route('/<int:user_id>', methods = ['PUT'])
 def change_user(user_id:int):
-    pass
+    return {'message':'hello'}
 
 #удалить данные пользователя
 @user_bp.route('/<int:user_id>', methods = ['DELETE'])
 def delete_exact_user(user_id:int):
-    pass
+    delete_user = delete_user_db(user_id)
+    if delete_user:
+        return {'status': 1, 'message': 'user deleted'}
+    return {'status': 0, 'message': 'Not found'}  # Если пользователя нет
 
