@@ -16,7 +16,7 @@ class User(db.Model):
 #Таблица паролей
 class Password(db.Model):
     __tablename__ = 'user_passwords'
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), primary_key=True)
     password = db.Column(db.String, nullable=False)
 
 
@@ -24,7 +24,7 @@ class Password(db.Model):
 class PostPhoto(db.Model):
     __tablename__ = 'user_photos'
     photo_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     photo_path = db.Column(db.String, nullable=False)
 
     user_fk = db.relationship(User)
@@ -33,7 +33,7 @@ class PostPhoto(db.Model):
 class Post(db.Model):
     __tablename__ = 'user_post'
     post_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     photo_id = db.Column(db.Integer, db.ForeignKey('user_photos.photo_id'), nullable=False)
     post_text = db.Column(db.String, nullable=True)
     post_date = db.Column(db.DateTime)
@@ -47,7 +47,7 @@ class PostComment(db.Model):
     __tablename__ = 'post_comments'
     comment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     post_id = db.Column(db.Integer, db.ForeignKey('user_post.post_id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     comment_text = db.Column(db.String, nullable=True)
     comment_date = db.Column(db.DateTime)
 

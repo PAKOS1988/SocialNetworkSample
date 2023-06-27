@@ -6,11 +6,15 @@ from posts.post_api import post_bp
 from user.user_api import user_bp
 from posts.post_api import post_bp
 from flask_restx import Api
+from database.models import db
 from swagger.test_swagger import swagger_bp
 api=Api()
 
 app = Flask(__name__)
-
+#Настройки базы данных
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///media.db'
+db.init_app(app)
+# Регистрация сайта к swagger
 api.init_app(app)
 @app.route('/')
 def test_api():

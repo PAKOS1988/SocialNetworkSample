@@ -1,4 +1,4 @@
-from models import User, Password, db
+from database.models import User, Password, db
 
 #Регистрация
 def register_user_db(**user_data):
