@@ -66,7 +66,7 @@ def add_new_post_db(user_id, photo_id, post_text):
     new_post = Post(user_id=user_id, photo_id=photo_id, post_text=post_text)
     db.session.add(new_post)
     db.session.commit()
-    return True
+    return new_post.post_id
 
 
 #Добавить комментарий к посту
@@ -76,7 +76,7 @@ def add_comment_post_db(post_id, comment_user_id, comment_text):
         new_comment = PostComment(post_id=post_id, user_id=comment_user_id, comment_text=comment_text)
         db.session.add(new_comment)
         db.session.commit()
-        return True
+        return new_comment.comment_id
     return False
 
 # Получение хештегов по количеству
@@ -122,5 +122,10 @@ def delete_comment_db(comment_user_id, comment_id):
         return True
     return False
 
-
+#Загрузка фотографии
+def post_new_photo_db(user_id, photo_path):
+    new_post_photo = PostPhoto(user_id=user_id, photo_path=photo_path)
+    db.session.add(new_post_photo)
+    db.session.commit()
+    return new_post_photo.photo_id
 
