@@ -1,9 +1,5 @@
-from database.models import Post, PostPhoto, PostComment, db
+from database.models import Post, PostPhoto, PostComment, db, HashTag
 
-#Получить все посты
-def get_all_posts_db():
-    posts = Post.query.all()
-    return posts
 
 #Получить все изображения
 def get_all_photos_db():
@@ -36,14 +32,20 @@ def delete_exact_user_photo_db(user_id, photo_id, photo_path):
         return True
     return False
 
+#Получить все посты
+def get_all_posts_db():
+    posts = Post.query.all()
+    return posts
+
+
 #Получить определенный пост
 def get_exact_post_db(post_id):
     exact_post = Post.query.filter_by(post_id=post_id).first()
     return exact_post
 
 #Удалить определенный пост
-def delete_exact_post_db(post_id):
-    delete_post = Post.query.filter_by(post_id=post_id).first()
+def delete_exact_post_db(user_id, post_id):
+    delete_post = Post.query.filter_by(user_id=user_id, post_id=post_id).first()
     if delete_post:
         db.session.delete(delete_post)
         db.session.commit()
@@ -54,9 +56,18 @@ def delete_exact_post_db(post_id):
 def change_post_text_db(post_id, new_text):
     post = Post.query.filter_by(post_id=post_id).first()
     if post:
-
         post.post_text = new_text
         db.session.commit()
+        return True
+    return False
+
+#Добавить новый пост
+def add_new_post_db(user_id, photo_id, post_text):
+    new_post = Post(user_id=user_id, photo_id=photo_id, post_text=post_text)
+    db.session.add(new_post)
+    db.session.commit()
+    return True
+
 
 #Добавить комментарий к посту
 def add_comment_post_db(post_id, comment_user_id, comment_text):
@@ -64,6 +75,49 @@ def add_comment_post_db(post_id, comment_user_id, comment_text):
     if post:
         new_comment = PostComment(post_id=post_id, user_id=comment_user_id, comment_text=comment_text)
         db.session.add(new_comment)
+        db.session.commit()
+        return True
+    return False
+
+# Получение хештегов по количеству
+def get_hashtags_incount_db(size):
+    get_hashtags_incount= HashTag.query.all()
+    if len(get_hashtags_incount)>=size:
+        return get_hashtags_incount[:size]
+    return False
+
+# Получение определенного хештега
+def get_exact_hashtag_db(hashtag_name):
+    get_exact_hashtag = HashTag.query.filter_by(hashtag_name=hashtag_name).first()
+    if get_exact_hashtag:
+        return get_exact_hashtag
+    return False
+
+#Получить комментарии определенного поста
+def get_exact_post_comments_db(post_id):
+    exact_post_comments = PostComment.query.filter_by(post_id=post_id).first()
+    if exact_post_comments:
+        return exact_post_comments
+    return False
+
+
+# Изменение комментария
+
+def change_user_comment_db(comment_user_id, comment_id, comment_text):
+    change_user_comment = PostComment.query.filter_by(user_id=comment_user_id, comment_id=comment_id).first()
+    if change_user_comment:
+        change_user_comment.comment_text = comment_text
+        db.session.commit()
+        return True
+    return False
+
+
+# Удаление комментария
+
+def delete_comment_db(comment_user_id, comment_id):
+    delete_comment = PostComment.query.filter_by(user_id=comment_user_id, comment_id=comment_id).first()
+    if delete_comment:
+        db.session.delete(delete_comment)
         db.session.commit()
         return True
     return False
