@@ -10,6 +10,24 @@ def get_all_photos_db():
     photos = PostPhoto.query.all()
     return photos
 
+#Получить все изображения определенного пользователя
+def get_exact_user_photos_db(user_id):
+    exact_user_photo = PostPhoto.query.filter_by(user_id=user_id).first()
+    return exact_user_photo
+
+#Получить определенную фоторгафию по photo_id
+def get_exact_photo_db(photo_id):
+    exact_photo = PostPhoto.query.filter_by(photo_id=photo_id).first()
+    return exact_photo
+
+#Изменить определенную фоторгафию пользователя по user_id и photo_id
+def change_exact_user_photo_db(user_id, photo_id, photo_path):
+    change_exact_user_photo = PostPhoto.query.filter_by(photo_id=photo_id, user_id=user_id).first()
+    if change_exact_user_photo:
+        change_exact_user_photo.photo_path = photo_path
+        db.session.commit()
+
+
 #Получить определенный пост
 def get_exact_post_db(post_id):
     exact_post = Post.query.filter_by(post_id=post_id).first()
@@ -28,6 +46,7 @@ def delete_exact_post_db(post_id):
 def change_post_text_db(post_id, new_text):
     post = Post.query.filter_by(post_id=post_id).first()
     if post:
+
         post.post_text = new_text
         db.session.commit()
 
