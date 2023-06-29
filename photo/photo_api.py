@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from database.postservice import get_exact_user_photos_db, get_all_photos_db, get_exact_photo_db, change_exact_user_photo_db, delete_exact_user_photo_db
+from database.postservice import get_exact_user_photos_db, get_all_photos_db, get_exact_photo_db, change_exact_user_photo_db, delete_exact_user_photo_db, post_new_photo_db
 photo_bp = Blueprint('photo', __name__, url_prefix='/photo')
 
 #Получить все фотографии всех пользователей
@@ -10,13 +10,12 @@ def get_all_photos():
 
 #Публикация фотографии
 @photo_bp.route('/', methods=['POST'])
-def publish_photo():
+def publish_photo(user_id:int):
     #Получить фото из фронт части
     file = request.files.get('image', '')
     file.save('user_images/'+file.filename)
-    print (type(file))
-    return 'hello'
-
+    new_photo = post_new_photo_db(user_id, file.filename)
+    return {'status': 1, 'message': 'Photo added'}
 #Получить фотографии определенного пользователя по user_id
 @photo_bp.route('/<int:user_id>', methods = ['GET'])
 def get_exact_user_photos(user_id:int):

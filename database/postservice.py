@@ -88,10 +88,19 @@ def get_hashtags_incount_db(size):
 
 # Получение определенного хештега
 def get_exact_hashtag_db(hashtag_name):
-    get_exact_hashtag = HashTag.query.filter_by(hashtag_name=hashtag_name).first()
+    get_exact_hashtag = HashTag.query.filter_by(hashtag_name=hashtag_name).all()
     if get_exact_hashtag:
         return get_exact_hashtag
     return False
+
+#Добавить пост под hashtag
+def create_post_for_hashtag(post_id, hashtags):
+    created_hashtags = []
+    for hashtag_name in hashtags:
+        new_hashtag_post = HashTag(post_id=post_id, hashtag_name=hashtag_name)
+        created_hashtags.append(new_hashtag_post)
+    db.session.add_all(created_hashtags)
+    db.session.commit()
 
 #Получить комментарии определенного поста
 def get_exact_post_comments_db(post_id):
