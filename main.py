@@ -21,13 +21,13 @@ def test_api():
     html_dexkan ='<h1>Test my api</h1><br><input type="file">'
     return render_template('test.html')
 #Регистрация компонентов
-# app.register_blueprint(comment_bp)
-# app.register_blueprint(hashtag_bp)
-# app.register_blueprint(photo_bp)
-# app.register_blueprint(post_bp)
-# app.register_blueprint(user_bp)
+app.register_blueprint(comment_bp)
+app.register_blueprint(hashtag_bp)
+app.register_blueprint(photo_bp)
+app.register_blueprint(post_bp)
+app.register_blueprint(user_bp)
 #swagger
 app.register_blueprint(swagger_bp)
 
 #Запуск
-app.run()
+# app.run()
