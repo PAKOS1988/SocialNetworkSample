@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from database.postservice import get_exact_user_photos_db, get_all_photos_db, get_exact_photo_db, change_exact_user_photo_db
+from database.postservice import get_exact_user_photos_db, get_all_photos_db, get_exact_photo_db, change_exact_user_photo_db, delete_exact_user_photo_db
 photo_bp = Blueprint('photo', __name__, url_prefix='/photo')
 
 #Получить все фотографии всех пользователей
@@ -43,4 +43,7 @@ def change_exact_user_photo(user_id:int, photo_id:int, photo_path:str):
 #Удалить определенную фотографию пользователя
 @photo_bp.route('/<int:user_id>/<int:photo_id>', methods = ['DELETE'])
 def delete_user_photo(user_id:int, photo_id:int):
-    pass
+    delete_user_photo = delete_exact_user_photo_db(user_id, photo_id)
+    if delete_user_photo:
+        return {'status': 1, 'message': 'photo deleted'}
+    return {'status': 0, 'message': 'photo not found'}

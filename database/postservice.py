@@ -27,6 +27,14 @@ def change_exact_user_photo_db(user_id, photo_id, photo_path):
         change_exact_user_photo.photo_path = photo_path
         db.session.commit()
 
+#Удаляем определенную фоторгафию пользователя по user_id и photo_id
+def delete_exact_user_photo_db(user_id, photo_id, photo_path):
+    delete_exact_user_photo = PostPhoto.query.filter_by(photo_id=photo_id, user_id=user_id).first()
+    if delete_exact_user_photo:
+        db.session.delete(delete_exact_user_photo)
+        db.session.commit()
+        return True
+    return False
 
 #Получить определенный пост
 def get_exact_post_db(post_id):
@@ -39,8 +47,8 @@ def delete_exact_post_db(post_id):
     if delete_post:
         db.session.delete(delete_post)
         db.session.commit()
-    else:
-        return False
+        return True
+    return False
 
 #Изменить текст поста
 def change_post_text_db(post_id, new_text):
@@ -57,3 +65,5 @@ def add_comment_post_db(post_id, comment_user_id, comment_text):
         new_comment = PostComment(post_id=post_id, user_id=comment_user_id, comment_text=comment_text)
         db.session.add(new_comment)
         db.session.commit()
+        return True
+    return False
