@@ -24,7 +24,7 @@ def change_exact_user_photo_db(user_id, photo_id, photo_path):
         db.session.commit()
 
 #Удаляем определенную фоторгафию пользователя по user_id и photo_id
-def delete_exact_user_photo_db(user_id, photo_id, photo_path):
+def delete_exact_user_photo_db(user_id, photo_id):
     delete_exact_user_photo = PostPhoto.query.filter_by(photo_id=photo_id, user_id=user_id).first()
     if delete_exact_user_photo:
         db.session.delete(delete_exact_user_photo)
@@ -121,3 +121,6 @@ def delete_comment_db(comment_user_id, comment_id):
         db.session.commit()
         return True
     return False
+
+
+
