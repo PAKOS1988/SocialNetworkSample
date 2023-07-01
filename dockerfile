@@ -1,9 +1,11 @@
-WORKDIR /code
+FROM python:3.10
 
-COPY ./requirements.txt /code/requirements.txt
+WORKDIR /SocialNet
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY ./requirements.txt /SocialNet/requirements.txt
 
-COPY . /code/
+RUN pip install --no-cache-dir --upgrade -r /SocialNet/requirements.txt
+
+COPY . /SocialNet/
 
 CMD ["python3.9", "main.py"]
