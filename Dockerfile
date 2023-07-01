@@ -8,4 +8,6 @@ RUN pip install --no-cache-dir --upgrade -r /SocialNet/requirements.txt
 
 COPY . /SocialNet/
 
-CMD ["python3.9", "main.py"]
+CMD ["python3.10", "main.py"]
+
+EXPOSE 5000
